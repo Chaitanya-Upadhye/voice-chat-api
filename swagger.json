@@ -1,0 +1,161 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "3.0.3",
+    "title": "event-management service",
+    "description": "Just a dummy project",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "host": "localhost:8080",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "Events",
+      "description": "CRUD for events"
+    }
+  ],
+  "paths": {
+    "/event/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": ["Events"],
+        "summary": "Get event by id",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Events"
+            }
+          }
+        }
+      }
+    },
+    "/events": {
+      "get": {
+        "parameters": [
+          {
+            "name": "slotStart",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "slotEnd",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": ["Events"],
+        "summary": "Query events",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Events"
+            }
+          }
+        }
+      }
+    },
+    "/event/{eventId}": {
+      "put": {
+        "parameters": [
+          {
+            "name": "event",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Event"
+            }
+          }
+        ],
+        "tags": ["Events"],
+        "summary": "Create an event",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Events"
+            }
+          }
+        }
+      }
+    },
+    "/event/create": {
+      "post": {
+        "parameters": [
+          {
+            "name": "event",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Event"
+            }
+          }
+        ],
+        "tags": ["Events"],
+        "summary": "Create an event",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Events"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Event": {
+      "required": ["name", "_id", "companies"],
+      "properties": {
+        "_id": { "type": "string" },
+        "name": { "type": "string" },
+        "type": { "type": "string" },
+        "description": { "type": "string" },
+        "subjectUsers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "firstName": { "type": "string" },
+              "lastName": { "type": "string" }
+            }
+          }
+        },
+        "contactPersons": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "firstName": { "type": "string" },
+              "lastName": { "type": "string" }
+            }
+          }
+        },
+        "date": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      }
+    },
+    "Events": {
+      "type": "array",
+      "$ref": "#/definitions/Event"
+    }
+  },
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"]
+}
